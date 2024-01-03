@@ -1,6 +1,7 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:greengrocer/src/auth/components/custom_text_field.dart';
+import 'package:greengrocer/src/auth/sign_up_screen.dart';
 import 'package:greengrocer/src/config/custom_color.dart';
 
 class SignInScreen extends StatelessWidget {
@@ -140,7 +141,12 @@ class SignInScreen extends StatelessWidget {
                     SizedBox(
                       height: 50,
                       child: OutlinedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.of(context)
+                                .push(MaterialPageRoute(builder: (c) {
+                              return SignUpScreen();
+                            }));
+                          },
                           style: OutlinedButton.styleFrom(
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(18)),
