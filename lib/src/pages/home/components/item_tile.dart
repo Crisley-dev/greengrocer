@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:greengrocer/src/config/custom_color.dart';
 import 'package:greengrocer/src/models/item_model.dart';
+import 'package:greengrocer/src/pages/product/product_screen.dart';
 import 'package:greengrocer/src/services/util_services.dart';
 
 class ItemTile extends StatelessWidget {
@@ -13,52 +14,65 @@ class ItemTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Card(
-          elevation: 1,
-          shadowColor: Colors.grey.shade300,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(12),
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  //imagem
-                  Expanded(
-                    child: Image.asset(item.imgUrl),
-                  ),
-
-                  //nome
-                  Text(
-                    item.itemName,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  //preço - unidade
-                  Row(
-                    children: [
-                      Text(
-                        utilsServices.priceToCurrency(item.price),
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: CustomColors.customSwatchColor,
-                        ),
+        //Conteudo
+        GestureDetector(
+          onTap: () {
+            Navigator.of(context).push(MaterialPageRoute(builder: (c) {
+              return ProductScreen(
+                item: item,
+              );
+            }));
+          },
+          child: Card(
+            elevation: 1,
+            shadowColor: Colors.grey.shade300,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(12),
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    //imagem
+                    Expanded(
+                      child: Hero(
+                        tag: item.imgUrl,
+                        child: Image.asset(item.imgUrl),
                       ),
-                      Text(
-                        '/${item.unit}',
-                        style: TextStyle(
-                          color: Colors.grey.shade500,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12,
+                    ),
+
+                    //nome
+                    Text(
+                      item.itemName,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    //preço - unidade
+                    Row(
+                      children: [
+                        Text(
+                          utilsServices.priceToCurrency(item.price),
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: CustomColors.customSwatchColor,
+                          ),
                         ),
-                      )
-                    ],
-                  )
-                ]),
+                        Text(
+                          '/${item.unit}',
+                          style: TextStyle(
+                            color: Colors.grey.shade500,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 12,
+                          ),
+                        )
+                      ],
+                    )
+                  ]),
+            ),
           ),
         ),
         Positioned(
